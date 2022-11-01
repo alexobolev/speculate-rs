@@ -1,0 +1,48 @@
+name: Build
+on:
+  push:
+    branches:
+      - main
+      - devel
+env:
+  CARGO_TERM_COLOR: always
+jobs:
+  build:
+    name: ${{ matrix.os-name }} build (${{ matrix.profile }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - windows-2022
+          - ubuntu-22.04
+          - macos-12
+        profile:
+          - dev
+          - release
+        include:
+          - os: windows-2022
+            os-name: Windows
+          - os: ubuntu-22.04
+            os-name: Ubuntu
+          - os: macos-12
+            os-name: MacOS
+
+          - profile: dev
+            profile-flag: ''
+          - profile: release
+            profile-flag: '--release'
+    steps:
+      - uses: actions/checkout@v3
+      - name: Pull dependencies
+        run: |
+          cargo fetch
+      - name: Build code
+        run: |
+          cargo build ${{ matrix.profile-flag }}
+      - name: Dump native output tree (TEMPORARY)
+        run: |
+          find . | sed -e "s/[^-][^\/]*\// |/g" -e "s/|\([^ ]\)/|-\1/"
+      - name: Run tests
+        run: |
+          cargo test ${{ matrix.profile-flag }}
