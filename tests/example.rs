@@ -1,4 +1,3 @@
-extern crate speculate;
 use speculate::speculate;
 
 speculate! {

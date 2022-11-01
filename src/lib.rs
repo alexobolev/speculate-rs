@@ -4,8 +4,6 @@
 //! Please see the documentation for the [`speculate`](./macro.speculate.html) macro
 //! for more information and examples.
 
-extern crate proc_macro;
-
 use crate::{block::Root, generator::Generate};
 use proc_macro::TokenStream;
 use quote::quote;
@@ -42,7 +40,7 @@ fn get_root_name() -> proc_macro2::Ident {
 ///   For example:
 ///
 ///   ```rust
-///   #[macro_use] extern crate speculate as other_speculate;
+///   #[macro_use] use speculate::speculate;
 ///   # fn main() {}
 ///   # speculate! {
 ///   it "can add 1 and 2" {
@@ -54,7 +52,7 @@ fn get_root_name() -> proc_macro2::Ident {
 ///   You can optionally add attributes to this block:
 ///
 ///   ```rust
-///   #[macro_use] extern crate speculate as other_speculate;
+///   #[macro_use] use speculate::speculate;
 ///   # fn main() {}
 ///   # speculate! {
 ///   #[ignore]
@@ -79,7 +77,7 @@ fn get_root_name() -> proc_macro2::Ident {
 /// # Example
 ///
 /// ```rust
-///   #[macro_use] extern crate speculate as other_speculate;
+///   #[macro_use] use speculate::speculate;
 ///   # fn main() {}
 /// speculate! {
 ///     const ZERO: i32 = 0;
