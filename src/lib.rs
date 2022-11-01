@@ -12,15 +12,6 @@ use crate::{block::Root, generator::Generate};
 mod block;
 mod generator;
 
-static GLOBAL_SPECULATE_COUNT: AtomicUsize = AtomicUsize::new(0);
-
-fn get_root_name() -> proc_macro2::Ident {
-    let count = GLOBAL_SPECULATE_COUNT.fetch_add(1, Ordering::SeqCst);
-    let module_name = format!("speculate_{}", count);
-
-    syn::Ident::new(&module_name, proc_macro2::Span::call_site())
-}
-
 /// Creates a `test` module using a friendly syntax.
 ///
 /// Inside this block, the following elements can be used:
@@ -28,11 +19,8 @@ fn get_root_name() -> proc_macro2::Ident {
 /// * `describe` (or its alias `context`) - to group tests in a hierarchy, for
 ///   readability. Can be arbitrarily nested.
 ///
-/// * `before` - contains setup code that's inserted before every sibling and nested
-///   `it` and `bench` blocks.
-///
-/// * `after` - contains teardown code that's inserted after every sibling and
-///   nested `it` and `bench` blocks.
+/// * `before` and `after` - contain setup / teardown code that's inserted
+///   before / after every sibling and nested `it` block.
 ///
 /// * `it` (or its alias `test`) - contains tests.
 ///
@@ -117,4 +105,13 @@ pub fn speculate(input: TokenStream) -> TokenStream {
 
     prefix.extend(modl);
     prefix.into()
+}
+
+static GLOBAL_SPECULATE_COUNT: AtomicUsize = AtomicUsize::new(0);
+
+fn get_root_name() -> proc_macro2::Ident {
+    let count = GLOBAL_SPECULATE_COUNT.fetch_add(1, Ordering::SeqCst);
+    let module_name = format!("speculate_{}", count);
+
+    syn::Ident::new(&module_name, proc_macro2::Span::call_site())
 }

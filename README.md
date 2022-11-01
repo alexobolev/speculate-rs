@@ -1,6 +1,15 @@
 # speculate.rs
 
-> An RSpec inspired minimal testing framework for Rust.
+An RSpec inspired minimal testing framework for Rust. *(This is a private fork
+for Rust 2021, with updated dependencies and removed unstable functionality.)*
+
+[![Build Status][actions-badge]][actions-link]
+[![MIT licensed][mit-badge]][mit-link]
+
+[actions-badge]: https://github.com/alexobolev/speculate-rs/actions/workflows/build.yml/badge.svg
+[actions-link]: https://github.com/alexobolev/speculate-rs/actions?query=workflow%3ABuild+branch%3Amaster
+[mit-badge]: https://img.shields.io/badge/license-MIT-blue.svg
+[mit-link]: LICENSE.md
 
 ## Installation
 
@@ -15,9 +24,6 @@ And add the following to the top of the Rust file you want to add tests for:
 
 ```rust
 #[cfg(test)]
-extern crate speculate;
-
-#[cfg(test)]
 use speculate::speculate;  // Must be imported into the current scope.
 ```
 
@@ -30,11 +36,8 @@ Inside `speculate! { ... }`, you can have any "Item", like `static`, `const`,
 * `describe` (or its alias `context`) - to group tests in a hierarchy, for
   readability. Can be arbitrarily nested.
 
-* `before` - contains setup code that's inserted before every sibling and nested
-  `it` and `bench` blocks.
-
-* `after` - contains teardown code that's inserted after every sibling and
-  nested `it` and `bench` blocks.
+* `before` and `after` - contain setup / teardown code that's inserted
+  before / after every sibling and nested `it` block.
 
 * `it` (or its alias `test`) - contains tests.
 
@@ -65,55 +68,7 @@ Inside `speculate! { ... }`, you can have any "Item", like `static`, `const`,
   }
   ```
 
-* `bench` - contains benchmarks.
-
-  For example:
-
-  ```rust
-  bench "xor 1 to 1000" |b| {
-      b.iter(|| (0..1000).fold(0, |a, b| a ^ b));
-  }
-  ```
-
-## Complete Example (from `tests/example.rs`)
-
-```rust
-extern crate speculate;
-
-use speculate::speculate;
-
-speculate! {
-    const ZERO: i32 = 0;
-
-    fn add(a: i32, b: i32) -> i32 {
-        a + b
-    }
-
-    describe "math" {
-        const ONE: i32 = 1;
-
-        fn sub(a: i32, b: i32) -> i32 {
-            a - b
-        }
-
-        before {
-            let two = ONE + ONE;
-        }
-
-        it "can add stuff" {
-            assert_eq!(ONE, add(ZERO, ONE));
-            assert_eq!(two, add(ONE, ONE));
-        }
-
-        it "can subtract stuff" {
-            assert_eq!(ZERO, sub(ONE, ONE));
-            assert_eq!(ONE, sub(two, ONE));
-        }
-    }
-}
-```
-
 ## License
 
 Licensed same as the original repository, under MIT License.
-A copy can be found in repo root.
+A copy can be found in the repo root.

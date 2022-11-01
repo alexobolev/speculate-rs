@@ -40,9 +40,6 @@ jobs:
       - name: Build code
         run: |
           cargo build ${{ matrix.profile-flag }}
-      - name: Dump native output tree (TEMPORARY)
-        run: |
-          find . | sed -e "s/[^-][^\/]*\// |/g" -e "s/|\([^ ]\)/|-\1/"
       - name: Run tests
         run: |
           cargo test ${{ matrix.profile-flag }}
