@@ -1,4 +1,4 @@
-# speculate.rs [![Build Status](https://travis-ci.org/utkarshkukreti/speculate.rs.svg?branch=master)](https://travis-ci.org/utkarshkukreti/speculate.rs) [![speculate at crates.io](https://img.shields.io/crates/v/speculate.svg)](https://crates.io/crates/speculate)
+# speculate.rs
 
 > An RSpec inspired minimal testing framework for Rust.
 
@@ -115,4 +115,5 @@ speculate! {
 
 ## License
 
-MIT
+Licensed same as the original repository, under MIT License.
+A copy can be found in repo root.
