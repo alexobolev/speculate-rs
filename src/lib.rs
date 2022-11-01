@@ -4,14 +4,13 @@
 //! Please see the documentation for the [`speculate`](./macro.speculate.html) macro
 //! for more information and examples.
 
-use crate::{block::Root, generator::Generate};
+use std::sync::atomic::{AtomicUsize, Ordering};
 use proc_macro::TokenStream;
 use quote::quote;
+use crate::{block::Root, generator::Generate};
 
 mod block;
 mod generator;
-
-use std::sync::atomic::{AtomicUsize, Ordering};
 
 static GLOBAL_SPECULATE_COUNT: AtomicUsize = AtomicUsize::new(0);
 
@@ -40,36 +39,34 @@ fn get_root_name() -> proc_macro2::Ident {
 ///   For example:
 ///
 ///   ```rust
-///   #[macro_use] use speculate::speculate;
-///   # fn main() {}
-///   # speculate! {
-///   it "can add 1 and 2" {
-///       assert_eq!(1 + 2, 3);
+///   use speculate::speculate;
+///   speculate! {
+///       it "can add 1 and 2" {
+///           assert_eq!(1 + 2, 3);
+///       }
 ///   }
-///   # }
 ///   ```
 ///
 ///   You can optionally add attributes to this block:
 ///
 ///   ```rust
-///   #[macro_use] use speculate::speculate;
-///   # fn main() {}
-///   # speculate! {
-///   #[ignore]
-///   test "ignore" {
-///       assert_eq!(1, 2);
-///   }
+///   use speculate::speculate;
+///   speculate! {
+///       #[ignore]
+///       test "ignore" {
+///           assert_eq!(1, 2);
+///       }
 ///
-///   #[should_panic]
-///   test "should panic" {
-///       assert_eq!(1, 2);
-///   }
+///       #[should_panic]
+///       test "should panic" {
+///           assert_eq!(1, 2);
+///       }
 ///
-///   #[should_panic(expected = "foo")]
-///   test "should panic with foo" {
-///       panic!("foo");
+///       #[should_panic(expected = "foo")]
+///       test "should panic with foo" {
+///           panic!("foo");
+///       }
 ///   }
-///   # }
 ///   ```
 ///
 /// * Any other Rust "Item", such as `static`, `const`, `fn`, etc.
@@ -77,8 +74,7 @@ fn get_root_name() -> proc_macro2::Ident {
 /// # Example
 ///
 /// ```rust
-///   #[macro_use] use speculate::speculate;
-///   # fn main() {}
+/// use speculate::speculate;
 /// speculate! {
 ///     const ZERO: i32 = 0;
 ///
