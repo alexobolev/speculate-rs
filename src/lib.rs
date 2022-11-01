@@ -13,22 +13,10 @@ use quote::quote;
 mod block;
 mod generator;
 
-#[cfg(not(feature = "nightly"))]
 use std::sync::atomic::{AtomicUsize, Ordering};
 
-#[cfg(feature = "nightly")]
-fn get_root_name() -> proc_macro2::Ident {
-    let start_line = proc_macro::Span::call_site().start().line;
-    let module_name = format!("speculate_{}", start_line);
-
-    syn::Ident::new(&module_name, proc_macro2::Span::call_site())
-}
-
-// TODO: Get rid of this once proc_macro_span stabilises
-#[cfg(not(feature = "nightly"))]
 static GLOBAL_SPECULATE_COUNT: AtomicUsize = AtomicUsize::new(0);
 
-#[cfg(not(feature = "nightly"))]
 fn get_root_name() -> proc_macro2::Ident {
     let count = GLOBAL_SPECULATE_COUNT.fetch_add(1, Ordering::SeqCst);
     let module_name = format!("speculate_{}", count);
@@ -82,21 +70,6 @@ fn get_root_name() -> proc_macro2::Ident {
 ///   #[should_panic(expected = "foo")]
 ///   test "should panic with foo" {
 ///       panic!("foo");
-///   }
-///   # }
-///   ```
-///
-/// * `bench` - contains benchmarks (using [`Bencher`](https://doc.rust-lang.org/test/struct.Bencher.html)).
-///
-///   For example:
-///
-///   ```rust
-///   #[macro_use] extern crate speculate as other_speculate;
-///   # fn main() {}
-///   # speculate! {
-///   bench "xor 1 to 1000" |b| {
-///       // Here, `b` is a `test::Bencher`.
-///       b.iter(|| (0..1000).fold(0, |a, b| a ^ b));
 ///   }
 ///   # }
 ///   ```
