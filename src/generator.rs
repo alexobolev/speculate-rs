@@ -1,4 +1,4 @@
-use crate::block::{Bench, Block, Describe, It};
+use crate::block::{Block, Describe, It};
 use proc_macro2::{Ident, TokenStream};
 use quote::{quote_spanned, ToTokens};
 
@@ -11,7 +11,6 @@ impl Generate for Block {
         match self {
             Block::Describe(describe) => describe.generate(up),
             Block::It(it) => it.generate(up),
-            Block::Bench(bench) => bench.generate(up),
             Block::Item(item) => item.into_token_stream(),
         }
     }
@@ -70,33 +69,6 @@ impl Generate for It {
             #[test]
             #(#attributes)*
             fn #name() {
-                #(#stmts)*
-            }
-        )
-    }
-}
-
-impl Generate for Bench {
-    fn generate(self, up: Option<&Describe>) -> TokenStream {
-        let blocks = if let Some(ref up) = up {
-            up.before
-                .iter()
-                .chain(Some(self.block).iter())
-                .chain(up.after.iter())
-                .cloned()
-                .collect()
-        } else {
-            vec![self.block]
-        };
-
-        let stmts = flatten_blocks(blocks);
-
-        let name = Ident::new(&format!("bench_{}", self.name), self.name.span());
-        let ident = self.ident;
-
-        quote_spanned!(name.span() =>
-            #[bench]
-            fn #name(#ident: &mut ::test::Bencher) {
                 #(#stmts)*
             }
         )

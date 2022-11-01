@@ -12,13 +12,13 @@ keywords = ["rspec", "test", "testing", ]
 
 [dependencies]
 # Full features are needed for Syn, in order to have the Item enum.
-syn = { version = "^0.14", features = [ "full" ] }
+syn = { version = "^1.0.46", features = [ "full" ] }
 
 # Nightly feature is required to preserve span information.
-proc-macro2 = { version = "^0.4", features = [ "nightly" ] }
+proc-macro2 = { version = "^1.0.40", features = [ "nightly" ] }
 
-quote = "^0.6"
-unicode-xid = "^0.1"
+quote = "^1.0.21"
+unicode-xid = "^0.2.4"
 
 [lib]
 proc-macro = true
