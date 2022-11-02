@@ -11,6 +11,7 @@ use crate::{block::Root, generator::Generate};
 
 mod block;
 mod generator;
+mod parse_ext;
 
 /// Creates a `test` module using a friendly syntax.
 ///
