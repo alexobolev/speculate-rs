@@ -11,8 +11,8 @@ categories = ["development-tools::testing"]
 keywords = ["rspec", "test", "testing", ]
 
 [dependencies]
-proc-macro2 = { version = "^1.0.40", features = [ "nightly" ] }
-syn = { version = "^1.0.46", features = [ "full" ] }
+proc-macro2 = { version = "^1.0.47", features = [ "nightly" ] }
+syn = { version = "^1.0.103", features = [ "full" ] }
 quote = "^1.0.21"
 unicode-xid = "^0.2.4"
 
