@@ -60,7 +60,7 @@ impl Generate for It {
             vec![self.block]
         };
 
-        let stmts = flatten_blocks(blocks);
+        let stmts = blocks.into_iter().flat_map(|block| block.stmts);
 
         let name = Ident::new(&format!("test_{}", self.name), self.name.span());
         let attributes = self.attributes;
@@ -73,8 +73,4 @@ impl Generate for It {
             }
         )
     }
-}
-
-fn flatten_blocks(blocks: Vec<syn::Block>) -> impl Iterator<Item = syn::Stmt> {
-    blocks.into_iter().flat_map(|block| block.stmts)
 }

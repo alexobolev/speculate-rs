@@ -5,13 +5,11 @@
 //! for more information and examples.
 
 use std::sync::atomic::{AtomicUsize, Ordering};
-use proc_macro::TokenStream;
-use quote::quote;
-use crate::{block::Root, generator::Generate};
+use crate::generator::Generate;
 
 mod block;
 mod generator;
-mod parse_ext;
+mod extension;
 
 /// Creates a `test` module using a friendly syntax.
 ///
@@ -95,24 +93,18 @@ mod parse_ext;
 /// }
 /// ```
 #[proc_macro]
-pub fn speculate(input: TokenStream) -> TokenStream {
-    let input: proc_macro2::TokenStream = input.into();
-    let mut root = syn::parse2::<Root>(input).unwrap();
+pub fn speculate(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
+    let mut root = syn::parse2::<block::Root>(input.into()).unwrap();
+    root.0.name = {
+        static GLOBAL_COUNT: AtomicUsize = AtomicUsize::new(0);
+        let invocation_count = GLOBAL_COUNT.fetch_add(1, Ordering::SeqCst);
+        let module_name = format!("speculate2_{}", invocation_count);
+        syn::Ident::new(&module_name, proc_macro2::Span::call_site())
+    };
 
-    root.0.name = get_root_name();
+    let mut output = proc_macro2::TokenStream::new();
+    output.extend(quote::quote!( #[allow(non_snake_case)] ));
+    output.extend(root.0.generate(None));
 
-    let mut prefix = quote!( #[allow(non_snake_case)] );
-    let modl = root.0.generate(None);
-
-    prefix.extend(modl);
-    prefix.into()
-}
-
-static GLOBAL_SPECULATE_COUNT: AtomicUsize = AtomicUsize::new(0);
-
-fn get_root_name() -> proc_macro2::Ident {
-    let count = GLOBAL_SPECULATE_COUNT.fetch_add(1, Ordering::SeqCst);
-    let module_name = format!("speculate_{}", count);
-
-    syn::Ident::new(&module_name, proc_macro2::Span::call_site())
+    output.into()
 }

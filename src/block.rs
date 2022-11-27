@@ -1,7 +1,7 @@
 use std::marker::PhantomData;
 use proc_macro2::Span;
 use syn::parse::{Parse, ParseStream};
-use crate::parse_ext::{ParseExt, ToIdentExt};
+use crate::extension::{ParseExt, ToIdentExt};
 
 
 /// Keywords used in test specs.
