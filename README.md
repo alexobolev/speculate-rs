@@ -7,11 +7,17 @@ Originally developed by [Utkarsh Kukreti](https://github.com/utkarshkukreti/spec
 
 [![Build Status][actions-badge]][actions-link]
 [![MIT licensed][mit-badge]][mit-link]
+[![crates.io][crates-badge]][crates-link]
+[![docs.rs][docs-badge]][docs-link]
 
 [actions-badge]: https://github.com/alexobolev/speculate-rs/actions/workflows/build.yml/badge.svg
 [actions-link]: https://github.com/alexobolev/speculate-rs/actions?query=workflow%3ABuild+branch%3Amaster
 [mit-badge]: https://img.shields.io/badge/license-MIT-blue.svg
 [mit-link]: LICENSE.md
+[crates-badge]: https://img.shields.io/crates/v/speculate2.svg
+[crates-link]: https://crates.io/crates/speculate2
+[docs-badge]: https://img.shields.io/docsrs/speculate2
+[docs-link]: https://docs.rs/speculate2/latest/speculate2/
 
 ## Installation
 
