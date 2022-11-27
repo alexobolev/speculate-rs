@@ -1,5 +1,9 @@
-//! `speculate` is a crate that provides a very simple macro
-//! that is used to easily and elegantly define unit tests in Rust.
+//! # speculate2
+//!
+//! An updated fork of `speculate` by
+//! [Utkarsh Kukreti](https://github.com/utkarshkukreti/speculate.rs),
+//! a crate that provides a very simple macro that is used to easily
+//! and elegantly define unit tests in Rust.
 //!
 //! Please see the documentation for the [`speculate`](./macro.speculate.html) macro
 //! for more information and examples.

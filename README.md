@@ -3,6 +3,8 @@
 An RSpec inspired minimal testing framework for Rust. *(This is an updated and partially
 rewritten fork for Rust 2021, with updated dependencies and removed unstable functionality.)*
 
+Originally developed by [Utkarsh Kukreti](https://github.com/utkarshkukreti/speculate.rs).
+
 [![Build Status][actions-badge]][actions-link]
 [![MIT licensed][mit-badge]][mit-link]
 
