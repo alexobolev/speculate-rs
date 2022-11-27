@@ -1,8 +1,8 @@
 [package]
-name = "speculate"
+name = "speculate2"
 version = "0.2.0"
 authors = ["Utkarsh Kukreti <utkarshkukreti@gmail.com>", "Grégoire Geis <git@gregoirege.is>", "Alex Sobolev <code.sobolev@gmail.com>"]
-description = "An RSpec inspired minimal testing framework for Rust."
+description = "An updated fork of `speculate`, an RSpec inspired minimal testing framework for Rust."
 repository = "https://github.com/alexobolev/speculate-rs"
 readme = "README.md"
 license = "MIT"

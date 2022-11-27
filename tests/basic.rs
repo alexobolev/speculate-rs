@@ -1,4 +1,4 @@
-use speculate::speculate;
+use speculate2::speculate;
 
 pub fn zero() -> u32 {
     0
@@ -73,13 +73,13 @@ speculate! {
 
 // Parsing edge cases
 mod ec1 {
-    use speculate::speculate;
+    use speculate2::speculate;
 
     speculate! {}
 }
 
 mod ec2 {
-    use speculate::speculate;
+    use speculate2::speculate;
 
     speculate! {
         before {}
@@ -93,7 +93,7 @@ mod ec2 {
 }
 
 mod ec3 {
-    use speculate::speculate;
+    use speculate2::speculate;
 
     speculate! {
         it "foo" {}
@@ -101,7 +101,7 @@ mod ec3 {
 }
 
 mod ec4 {
-    use speculate::speculate;
+    use speculate2::speculate;
 
     speculate! {
         after {}
@@ -109,7 +109,7 @@ mod ec4 {
 }
 
 mod ec5 {
-    use speculate::speculate;
+    use speculate2::speculate;
 
     speculate! {
         before {}
@@ -119,7 +119,7 @@ mod ec5 {
 }
 
 mod attributes {
-    use speculate::speculate;
+    use speculate2::speculate;
 
     speculate! {
         #[ignore]

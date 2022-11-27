@@ -1,4 +1,4 @@
-use speculate::speculate;
+use speculate2::speculate;
 
 speculate! {
     const ZERO: i32 = 0;

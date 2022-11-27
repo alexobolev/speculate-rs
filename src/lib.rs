@@ -28,7 +28,7 @@ mod parse_ext;
 ///   For example:
 ///
 ///   ```rust
-///   use speculate::speculate;
+///   use speculate2::speculate;
 ///   speculate! {
 ///       it "can add 1 and 2" {
 ///           assert_eq!(1 + 2, 3);
@@ -39,7 +39,7 @@ mod parse_ext;
 ///   You can optionally add attributes to this block:
 ///
 ///   ```rust
-///   use speculate::speculate;
+///   use speculate2::speculate;
 ///   speculate! {
 ///       #[ignore]
 ///       test "ignore" {
@@ -63,7 +63,7 @@ mod parse_ext;
 /// # Example
 ///
 /// ```rust
-/// use speculate::speculate;
+/// use speculate2::speculate;
 /// speculate! {
 ///     const ZERO: i32 = 0;
 ///

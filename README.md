@@ -1,7 +1,7 @@
-# speculate.rs
+# speculate2
 
-An RSpec inspired minimal testing framework for Rust. *(This is a private fork
-for Rust 2021, with updated dependencies and removed unstable functionality.)*
+An RSpec inspired minimal testing framework for Rust. *(This is an updated and partially
+rewritten fork for Rust 2021, with updated dependencies and removed unstable functionality.)*
 
 [![Build Status][actions-badge]][actions-link]
 [![MIT licensed][mit-badge]][mit-link]
@@ -17,14 +17,14 @@ Add `speculate` to the `dev-dependencies` section of your `Cargo.toml`:
 
 ```toml
 [dev-dependencies]
-speculate = "0.1"
+speculate2 = "0.2"
 ```
 
 And add the following to the top of the Rust file you want to add tests for:
 
 ```rust
 #[cfg(test)]
-use speculate::speculate;  // Must be imported into the current scope.
+use speculate2::speculate;  // Must be imported into the current scope.
 ```
 
 ## Usage
