@@ -23,6 +23,20 @@ impl ParseExt for ParseStream<'_> {
     }
 }
 
+pub(crate) trait VecExt<T> {
+    fn prefix<I>(&mut self, iter: I) where I: IntoIterator<Item = T>;
+}
+
+impl<T> VecExt<T> for Vec<T> {
+    fn prefix<I>(&mut self, iter: I) where I: IntoIterator<Item = T> {
+        // this is a very dumb implementation
+        // but I don't really need better perf yet
+        for (index, item) in iter.into_iter().enumerate() {
+            self.insert(index, item);
+        }
+    }
+}
+
 pub(crate) trait ToIdentExt {
     fn to_ident(&self) -> syn::Ident;
 }

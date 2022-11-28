@@ -1,4 +1,5 @@
 use crate::block::{Block, Describe, It};
+use crate::extension::VecExt;
 use proc_macro2::{Ident, TokenStream};
 use quote::{quote_spanned, ToTokens};
 
@@ -19,13 +20,8 @@ impl Generate for Block {
 impl Generate for Describe {
     fn generate(mut self, outer: Option<&Describe>) -> TokenStream {
         if let Some(outer) = outer {
-            self.before = outer.before.iter()
-                .chain(self.before.iter())
-                .cloned().collect();
-
-            self.after = self.after.iter()
-                .chain(outer.after.iter())
-                .cloned().collect();
+            self.before.prefix(outer.before.iter().cloned());
+            self.after.extend(outer.after.iter().cloned());
         }
 
         let name = &self.name;
@@ -49,7 +45,7 @@ impl Generate for It {
         let blocks = match outer {
             Some(outer) => {
                 outer.before.iter()
-                    .chain(Some(self.block).iter())
+                    .chain(std::iter::once(&self.block))
                     .chain(outer.after.iter())
                     .cloned().collect()
             },
